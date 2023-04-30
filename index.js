@@ -17,17 +17,15 @@
 
 // testFunction();
 
-// console.log("finished exectuion")
+// console.log("finished execution")
 
-function func() {
-  console.log("func");
-}
+//CREATING SUBCONTEXT
 
-func.primary = "text";
+var c = {
+  name: "The c object",
+  log: function () {
+    console.log(this);
+  },
+};
 
-func();
-console.log(func.primary);
-
-(() => {
-  console.log("kkk");
-})();
+c.log();

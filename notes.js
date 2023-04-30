@@ -23,3 +23,5 @@
 // Dynamic typing
 // Coercion -> js compiler figuring out when you wan to add number and a string -> it will convert the number to a string and concatenate two strings
 // Mutate to change something, Immutable means in can't be change
+
+// "this" is created for every execution context, aka every time function is run, and js decides what this will point at, so, if we console log "this" in a function it will point to the window object but if we console log this from a function that is a property of an object we created it will point to that object.
