@@ -29,3 +29,15 @@ var c = {
 };
 
 c.log();
+
+//IIFEs
+
+(function (name) {
+  console.log(name);
+})("milan");
+
+//or
+
+(function (name) {
+  console.log(name);
+})("milan");
