@@ -43,7 +43,7 @@ c.log();
 })("milan");
 
 //Closures
-
+// we are IIFEs to have closure for every loop
 function buildFunctions() {
   var arr = [];
   for (i = 0; i < 3; i++) {
@@ -84,3 +84,34 @@ var fs2 = buildFunctions2();
 fs2.forEach((fs2Item) => {
   fs2Item();
 });
+
+//two functions are created englishGreeting and spanisGreeting, they are possible to execute because of closure, language var stays in memory even thou execution context finished, and functions still have access to it
+var makeGreeting = function (language) {
+  return function (firstName) {
+    if (language === "en") {
+      console.log(`Hello ${firstName}`);
+    }
+
+    if (language === "es") {
+      console.log(`Hola ${firstName}`);
+    }
+  };
+};
+
+var englishGreeting = makeGreeting("en");
+var spanisGreeting = makeGreeting("es");
+
+englishGreeting("Aleksandar");
+
+spanisGreeting("Natalija");
+
+//This is example of using closure when the execution context finishes for sayHiLater function, sayHi var still stayed in memory
+var sayHiLater = function () {
+  var sayHi = "Hi later";
+
+  setTimeout(function () {
+    console.log(sayHi);
+  }, 3000);
+};
+
+sayHiLater();
