@@ -21,6 +21,10 @@
 
 //CREATING SUBCONTEXT
 
+var log = function (log) {
+  console.log(log);
+};
+
 var c = {
   name: "The c object",
   log: function () {
@@ -177,3 +181,19 @@ var secondarr = mapForEach(firstArr, function (item) {
 });
 
 console.log(secondarr);
+
+var arr3 = mapForEach(firstArr, function (item) {
+  return item > 2;
+});
+
+log(arr3);
+
+var checkPastLimit = function (limiter, item) {
+  return item > limiter;
+};
+
+var arr4 = mapForEach(arr3, checkPastLimit.bind(this, 1));
+
+log(arr4);
+
+//Soooo what happened here is that mapForEach expects two arguments, array and a function that expects one argument, we have a problem that CheckPastLimit expects 2 argument so we cannot pass it to mapForEach just like that, so, we use the fact that bind() returns a new function and is able tu curry(set default arguments) witch means we can create a new function from a function and it will accept one argument. We do checkPastLimit.bind(this,1), 1 is first argument and we make it default so now we just need to pass one and it will be item from the array.
