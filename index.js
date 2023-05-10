@@ -114,4 +114,66 @@ var sayHiLater = function () {
   }, 3000);
 };
 
-sayHiLater();
+// sayHiLater();
+
+var person = {
+  fname: "John",
+  lname: "Doe",
+  getFullName: function () {
+    var fullname = this.fname + " " + this.lname;
+    return fullname;
+  },
+};
+
+var logName = function (lang1, lang2) {
+  console.log("Logged: " + this.getFullName());
+};
+
+var logPersonName = logName.bind(person); //we do this to bind this object from the "person" object context to logName function, we could also did this on the fly
+// var logname = function() {...}.bind(person), so we would not need to create logPeronName function but just call logName.
+
+logPersonName();
+
+logName.call(person, "en", "es"); // call works like a regular call "()" but you can pass it a bind object as a first parametar.
+
+logName.apply(person, ["en", "es"]); // apply is same as call but requires an array of arguments
+
+//function borrowing
+
+var person2 = {
+  fname: "Aleksandar",
+  lname: "Beric",
+};
+
+console.log(person.getFullName.apply(person2));
+
+//function currying --> creating a copy of the function but with preset parameters
+
+function multiply(a, b) {
+  return a * b;
+}
+
+var multiplyByTwo = multiply.bind(this, 2); // bind made a copy of the multiply funtion and such that 2 is permanent first argument
+
+console.log(multiplyByTwo(3));
+
+//functional programming
+
+function mapForEach(arr, fn) {
+  var newArr = [];
+
+  for (var i = 0; i < arr.length; i++) {
+    newArr.push(fn(arr[i]));
+  }
+
+  return newArr;
+}
+
+var firstArr = [1, 2, 3];
+console.log(firstArr);
+
+var secondarr = mapForEach(firstArr, function (item) {
+  return item * 2;
+});
+
+console.log(secondarr);
