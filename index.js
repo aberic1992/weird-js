@@ -173,16 +173,16 @@ function mapForEach(arr, fn) {
   return newArr;
 }
 
-var firstArr = [1, 2, 3];
-console.log(firstArr);
+var arr1 = [1, 2, 3];
+console.log(arr1);
 
-var secondarr = mapForEach(firstArr, function (item) {
+var arr2 = mapForEach(arr1, function (item) {
   return item * 2;
 });
 
-console.log(secondarr);
+console.log(arr2);
 
-var arr3 = mapForEach(firstArr, function (item) {
+var arr3 = mapForEach(arr1, function (item) {
   return item > 2;
 });
 
@@ -196,4 +196,14 @@ var arr4 = mapForEach(arr3, checkPastLimit.bind(this, 1));
 
 log(arr4);
 
-//Soooo what happened here is that mapForEach expects two arguments, array and a function that expects one argument, we have a problem that CheckPastLimit expects 2 argument so we cannot pass it to mapForEach just like that, so, we use the fact that bind() returns a new function and is able tu curry(set default arguments) witch means we can create a new function from a function and it will accept one argument. We do checkPastLimit.bind(this,1), 1 is first argument and we make it default so now we just need to pass one and it will be item from the array. checkPastLimit.bind(this,1) is creating new function on a fly, it is not call of the function we could have created new var with bind and passed that var to mapForEach.
+var checkPastLimitWithVar = function (limit) {
+  return function (limit, item) {
+    return item * 4;
+  }.bind(this, limit);
+};
+
+var arr5 = mapForEach(arr2, checkPastLimitWithVar(1));
+
+log(arr5);
+
+//Soooo what happened here is that mapForEach expects two arguments, array and a function that expects one argument, we have a problem that CheckPastLimit expects 2 argument so we cannot pass it to mapForEach just like that, so, we use the fact that bind() returns a new function and is able tu curry(set default arguments) witch means we can create a new function from a function and it will accept one argument. We do checkPastLimit.bind(this,1), 1 is first argument and we make it default so now we just need to pass one and it will be item from the array. checkPastLimit.bind(this,1) is creating new function on a fly, it is not call of the function we could have created new var with bind and passed that var to mapForEach. and that function is checkPastLimitWithVar.
